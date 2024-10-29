@@ -1,30 +1,42 @@
-import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabase";
-import Auth from "../components/Auth";
-import Account from "../components/Account";
-import { View } from "react-native";
-import { Session } from "@supabase/supabase-js";
+import React from "react";
+import { Stack } from "expo-router";
+import { View, Text, StyleSheet } from "react-native";
+import { FlatList } from "react-native";
 
 export default function HomeScreen() {
-  const [session, setSession] = useState<Session | null>(null);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-  }, []);
+  const polls = [1, 2, 3];
 
   return (
-    <View>
-      {session && session.user ? (
-        <Account key={session.user.id} session={session} />
-      ) : (
-        <Auth />
-      )}
-    </View>
+    <>
+      <Stack.Screen options={{ title: "Polls" }} />
+      <FlatList
+        data={polls}
+        contentContainerStyle={styles.container}
+        renderItem={({ item }) => (
+          <View style={styles.pollContainer}>
+            <Text style={styles.pollTitle}>
+              Are we ready to kick some butt?
+            </Text>
+          </View>
+        )}
+      />
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    gap: 5,
+  },
+  pollContainer: {
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 5,
+  },
+  pollTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+});
