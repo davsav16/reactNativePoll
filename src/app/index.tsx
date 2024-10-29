@@ -2,9 +2,10 @@ import React from "react";
 import { Stack } from "expo-router";
 import { View, Text, StyleSheet } from "react-native";
 import { FlatList } from "react-native";
+import { Link } from "expo-router";
 
 export default function HomeScreen() {
-  const polls = [1, 2, 3];
+  const polls = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }];
 
   return (
     <>
@@ -13,11 +14,11 @@ export default function HomeScreen() {
         data={polls}
         contentContainerStyle={styles.container}
         renderItem={({ item }) => (
-          <View style={styles.pollContainer}>
+          <Link href={`/polls/${item.id}`} style={styles.pollContainer}>
             <Text style={styles.pollTitle}>
-              Are we ready to kick some butt?
+              {item.id} Are we ready to kick some butt?
             </Text>
-          </View>
+          </Link>
         )}
       />
     </>
