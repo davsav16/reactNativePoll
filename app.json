@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "client-mind",
     "name": "client-mind",
     "slug": "client-mind",
     "version": "1.0.0",
@@ -21,7 +22,9 @@
       }
     },
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": ["expo-router"]
   }
 }
