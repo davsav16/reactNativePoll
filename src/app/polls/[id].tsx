@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { View, Text, StyleSheet, Pressable, Button } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useState } from "react";
@@ -12,8 +12,13 @@ export default function PollDetails() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const [selected, setSelected] = useState("React Native");
 
+  const vote = () => {
+    console.log("Vote", selected);
+  };
+
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{ title: poll.question }} />
       <Text style={styles.question}>{poll.question}</Text>
       <View style={{ gap: 5 }}>
         {poll.options.map((option) => (
@@ -31,6 +36,7 @@ export default function PollDetails() {
           </Pressable>
         ))}
       </View>
+      <Button onPress={() => vote()} title="Vote" />
     </View>
   );
 }
