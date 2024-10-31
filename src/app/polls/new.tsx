@@ -1,15 +1,22 @@
 import { useState } from "react";
 import { Text, View, StyleSheet, TextInput, Button } from "react-native";
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import { Feather } from "@expo/vector-icons";
+import { useAuth } from "../providers/AuthProvider";
 
 export default function CreatePoll() {
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState(["", ""]);
 
+  const { user } = useAuth();
+
   const createPoll = () => {
     console.warn("Create Poll");
   };
+
+  if (!user) {
+    return <Redirect href="/login" />;
+  }
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: "Create Poll" }} />
