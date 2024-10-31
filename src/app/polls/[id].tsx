@@ -36,7 +36,7 @@ export default function PollDetails() {
           </Pressable>
         ))}
       </View>
-      <Button onPress={() => vote()} title="Vote" />
+      <Button onPress={vote} title="Vote" />
     </View>
   );
 }
