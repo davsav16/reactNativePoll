@@ -29,9 +29,8 @@ export default function CreatePoll() {
       />
       <Text style={styles.label}>Options</Text>
       {options.map((option, index) => (
-        <View style={{ justifyContent: "center" }}>
+        <View key={index} style={{ justifyContent: "center" }}>
           <TextInput
-            key={index}
             placeholder={`Option ${index + 1}`}
             style={styles.input}
             value={option}
