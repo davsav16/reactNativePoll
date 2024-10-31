@@ -7,7 +7,17 @@ import { AntDesign } from "@expo/vector-icons";
 import { supabase } from "../lib/supabase";
 
 export default function HomeScreen() {
-  const [polls, setPolls] = useState([]);
+  const [polls, setPolls] = useState<
+    (
+      | {
+          created_at: string;
+          id: number;
+          options: string[];
+          question: string;
+        }[]
+      | null
+    )[]
+  >([]);
 
   useEffect(() => {
     const fetchPolls = async () => {
@@ -32,6 +42,11 @@ export default function HomeScreen() {
           headerRight: () => (
             <Link href={"/polls/new"}>
               <AntDesign name="plus" size={24} color="gray" />
+            </Link>
+          ),
+          headerLeft: () => (
+            <Link href={"/profile"}>
+              <AntDesign name="user" size={24} color="gray" />
             </Link>
           ),
         }}

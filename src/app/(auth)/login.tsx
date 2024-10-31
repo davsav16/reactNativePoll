@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Alert, StyleSheet, View, AppState } from "react-native";
+import {
+  Alert,
+  StyleSheet,
+  View,
+  AppState,
+  TextInput,
+  Text,
+} from "react-native";
 import { supabase } from "../../lib/supabase";
 import { Button, Input } from "@rneui/themed";
 
@@ -37,8 +44,8 @@ export default function Auth() {
       data: { session },
       error,
     } = await supabase.auth.signUp({
-      email: email,
-      password: password,
+      email,
+      password,
     });
 
     if (error) Alert.alert(error.message);
@@ -50,24 +57,23 @@ export default function Auth() {
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Input
-          label="Email"
-          leftIcon={{ type: "font-awesome", name: "envelope" }}
+        <Text>Sign in or Create an Account</Text>
+        <TextInput
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
           autoCapitalize={"none"}
+          style={styles.input}
         />
       </View>
       <View style={styles.verticallySpaced}>
-        <Input
-          label="Password"
-          leftIcon={{ type: "font-awesome", name: "lock" }}
+        <TextInput
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
           placeholder="Password"
           autoCapitalize={"none"}
+          style={styles.input}
         />
       </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -100,5 +106,10 @@ const styles = StyleSheet.create({
   },
   mt20: {
     marginTop: 20,
+  },
+  input: {
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 5,
   },
 });
