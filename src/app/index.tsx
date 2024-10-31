@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Stack } from "expo-router";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { FlatList } from "react-native";
 import { Link } from "expo-router";
 import { AntDesign } from "@expo/vector-icons";
+import { supabase } from "../lib/supabase";
 
 export default function HomeScreen() {
-  const polls = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }];
+  const [polls, setPolls] = useState([]);
+
+  useEffect(() => {
+    const fetchPolls = async () => {
+      console.log("Fetching ...");
+
+      let { data, error } = await supabase.from("polls").select("*");
+      if (error) {
+        Alert.alert("Error", error.message);
+      }
+      console.log(data);
+      setPolls(data);
+    };
+
+    fetchPolls();
+  }, []);
 
   return (
     <>
